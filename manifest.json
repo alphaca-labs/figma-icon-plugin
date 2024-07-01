@@ -1,13 +1,11 @@
 {
-  "name": "React Sample",
-  "id": "react-sample",
+  "name": "alphaca-icon-generate",
+  "id": "alphaca-icon-generate",
   "api": "1.0.0",
   "editorType": ["figma", "figjam"],
   "permissions": [],
   "main": "dist/code.js",
   "ui": "dist/index.html",
-  "networkAccess": {
-    "allowedDomains": ["none"]
-  },
+
   "documentAccess": "dynamic-page"
 }
