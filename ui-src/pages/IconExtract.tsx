@@ -121,7 +121,7 @@ export default function IconExtract() {
           <div style={{ width: "100%" }}>
             <label
               htmlFor="extractRoute"
-              style={IconExtractPageStyle.routeLabel}
+              style={IconExtractPageStyle.extractRouteLabel}
             >
               추출할 경로 (루트 기준)
             </label>
