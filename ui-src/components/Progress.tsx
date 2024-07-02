@@ -8,19 +8,25 @@ import { useProgress } from "../hooks/useProgress";
 interface ProgressProps {
   figmaToken: string;
   githubToken: string;
+  extractRoute: string;
   onError: (msg: string) => void;
 }
 
 export default function Progress({
   figmaToken,
   githubToken,
+  extractRoute,
   onError,
 }: ProgressProps) {
   const navigate = useNavigate();
 
   const { progress, progressTitle, progressValue } = useProgress();
 
-  const createPr = useCreatePRWithSvgMap({ progress, githubToken });
+  const createPr = useCreatePRWithSvgMap({
+    progress,
+    githubToken,
+    extractRoute,
+  });
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {
       const message = event.data.pluginMessage;
@@ -41,34 +47,6 @@ export default function Progress({
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
-
-  // useEffect(function bindOnMessageHandler() {
-  //   window.onmessage = async (event: MessageEvent<PluginMessage>) => {
-  //     const { type, payload } = event.data.pluginMessage;
-
-  //     if (type === PostMessageType.ExtractIcon) {
-  //       try {
-  //         const { svgByName } = payload;
-
-  //         const prUrl = await createPr(svgByName);
-
-  //         parent.postMessage(
-  //           {
-  //             pluginMessage: {
-  //               type: "setToken",
-  //               payload: { figmaToken, githubToken },
-  //             },
-  //           },
-  //           "*"
-  //         );
-
-  //         navigate("../extract_success", { state: { url: prUrl } });
-  //       } catch (e: any) {
-  //         onError(e?.message);
-  //       }
-  //     }
-  //   };
-  // }, []);
 
   return (
     <div

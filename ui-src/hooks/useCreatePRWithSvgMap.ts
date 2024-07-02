@@ -7,9 +7,11 @@ import { useProgress } from "./useProgress";
 export function useCreatePRWithSvgMap({
   progress,
   githubToken,
+  extractRoute,
 }: {
   githubToken: string;
   progress: ReturnType<typeof useProgress>["progress"];
+  extractRoute: string;
 }) {
   const githubAPI = useGithubAPI({
     auth: githubToken,
@@ -30,7 +32,7 @@ export function useCreatePRWithSvgMap({
         tree: [
           {
             sha: blob.sha,
-            path: "icons/icons.json",
+            path: `${extractRoute}/icons.json`,
             type: "blob",
             mode: "100644",
           },
@@ -53,9 +55,6 @@ export function useCreatePRWithSvgMap({
 
   const createPullRequest = useCallback(
     (commitSha: string) => async () => {
-      /**
-       * NOTE: this branch name is used in ./github/workflows/generate-icon-files.yml
-       */
       const newBranchName = `icon-update-${new Date().getTime()}`;
 
       await githubAPI.createGitRef({

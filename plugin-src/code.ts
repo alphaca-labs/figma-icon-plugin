@@ -4,7 +4,7 @@ import { extractIcon } from "./utils/extractIcon";
 figma.showUI(__html__, {
   themeColors: true,
   width: 400,
-  height: 500,
+  height: 600,
   visible: true,
 });
 

@@ -179,6 +179,7 @@ export default function IconExtract() {
             <Progress
               figmaToken={formState.figmaToken}
               githubToken={formState.githubToken}
+              extractRoute={formState.extractRoute}
               onError={handleExtractError}
             />
           </div>

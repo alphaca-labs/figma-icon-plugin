@@ -4,7 +4,16 @@ export async function convertComponentToSvg(
   component: ComponentNode
 ): Promise<SvgItem> {
   try {
-    const svg = await component.exportAsync({ format: "SVG_STRING" });
+    let svg = await component.exportAsync({ format: "SVG_STRING" });
+    svg = svg.replace(/<path([^>]*?)\/>/g, (match, p1) => {
+      if (p1.includes("fill=")) {
+        return match;
+      } else {
+        return `<path${p1} fill="currentColor"/>`;
+      }
+    });
+    console.log("svg is ", svg);
+
     return {
       id: component.name,
       svg,
