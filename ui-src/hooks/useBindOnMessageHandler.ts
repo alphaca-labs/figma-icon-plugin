@@ -14,10 +14,9 @@ export default function useBindOnMessageHandler({
   useEffect(function bindOnMessageHandler() {
     window.onmessage = async (event: MessageEvent<PluginMessage>) => {
       const { type, payload } = event.data.pluginMessage;
-
       if (type === PostMessageType.GetToken) {
-        setFigmaToken(payload?.figmaToken ?? "");
-        setGithubToken(payload?.githubToken ?? "");
+        setFigmaToken(payload.figmaToken ?? "");
+        setGithubToken(payload.githubToken ?? "");
       }
     };
   }, []);

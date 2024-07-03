@@ -15,14 +15,12 @@ figma.ui.onmessage = async (msg) => {
   if (msg.type === PostMessageType.GetToken) {
     const token = await figma.clientStorage.getAsync("token");
     const pluginMessage = {
-      type: "getToken",
+      type: PostMessageType.GetToken,
       payload: token,
     };
     figma.ui.postMessage(pluginMessage);
   }
   if (msg.type === PostMessageType.SaveToken) {
-    // Save token
-    // figmaToken, githubToken
     await figma.clientStorage.setAsync("token", msg.payload);
   }
   // figma.closePlugin();
