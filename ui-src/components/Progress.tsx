@@ -9,6 +9,7 @@ interface ProgressProps {
   figmaToken: string;
   githubToken: string;
   extractRoute: string;
+  fileName: string;
   onError: (msg: string) => void;
 }
 
@@ -16,6 +17,7 @@ export default function Progress({
   figmaToken,
   githubToken,
   extractRoute,
+  fileName,
   onError,
 }: ProgressProps) {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ export default function Progress({
     progress,
     githubToken,
     extractRoute,
+    fileName,
   });
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {

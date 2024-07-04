@@ -35,6 +35,8 @@ export default function IconExtract() {
       dispatch({ type: "SET_GITHUB_TOKEN", payload: value });
     } else if (name === "extractRoute") {
       dispatch({ type: "SET_ROUTE", payload: value });
+    } else if (name === "fileName") {
+      dispatch({ type: "SET_FILE_NAME", payload: value });
     }
   };
 
@@ -118,6 +120,24 @@ export default function IconExtract() {
               style={IconExtractPageStyle.githubToken}
             />
           </div>
+
+          <div style={{ width: "100%" }}>
+            <label
+              htmlFor="filename"
+              style={IconExtractPageStyle.extractRouteLabel}
+            >
+              파일 이름
+            </label>
+            <input
+              id="filename"
+              name="filename"
+              type="text"
+              value={formState.fileName}
+              onChange={handleChangeFormState}
+              style={IconExtractPageStyle.extractRoute}
+            />
+          </div>
+
           <div style={{ width: "100%" }}>
             <label
               htmlFor="extractRoute"
@@ -180,6 +200,7 @@ export default function IconExtract() {
               figmaToken={formState.figmaToken}
               githubToken={formState.githubToken}
               extractRoute={formState.extractRoute}
+              fileName={formState.fileName}
               onError={handleExtractError}
             />
           </div>

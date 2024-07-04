@@ -8,10 +8,12 @@ export function useCreatePRWithSvgMap({
   progress,
   githubToken,
   extractRoute,
+  fileName,
 }: {
   githubToken: string;
   progress: ReturnType<typeof useProgress>["progress"];
   extractRoute: string;
+  fileName: string;
 }) {
   const githubAPI = useGithubAPI({
     auth: githubToken,
@@ -32,7 +34,7 @@ export function useCreatePRWithSvgMap({
         tree: [
           {
             sha: blob.sha,
-            path: `${extractRoute}/icons.json`,
+            path: `${extractRoute}/icons/${fileName}.json`,
             type: "blob",
             mode: "100644",
           },
