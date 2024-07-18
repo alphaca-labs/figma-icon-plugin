@@ -1,0 +1,47 @@
+
+name: Update Icons
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-icons:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate SVG Components
+        run: node ./scripts/icon-generator.js
+
+      - name: Commit and push changes
+        env:
+          HUSKY: 0
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git commit -m "feat: update SVG components" || echo "No changes to commit"
+          git push
